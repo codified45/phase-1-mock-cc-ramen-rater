@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
             "name": form.name.value,
             "restaurant": form.restaurant.value,
             "image": form.image.value,
-            "rating": form.rating.value,
+            "rating": Number.parseInt(form.rating.value),
             "comment": form["new-comment"].value,
         };
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         fetch(currentRamensUrl, postMsgFormat)
         .then(res => res.json())
-        .then(obj => console.log(obj));      //add ajisen
+        .then(obj => console.log(obj));
     };
 
 });

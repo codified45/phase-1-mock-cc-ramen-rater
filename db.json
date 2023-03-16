@@ -39,6 +39,14 @@
       "image": "./assets/ramen/kojiro.jpg",
       "rating": 6,
       "comment": "Perfect for a cold night."
+    },
+    {
+      "name": "Tenderous Rib",
+      "restaurant": "Ajisen",
+      "image": "./assets/ramen/ajisen.webp",
+      "rating": 8,
+      "comment": "Rib so soft you could chew it with your tongue.",
+      "id": 6
     }
   ]
 }
