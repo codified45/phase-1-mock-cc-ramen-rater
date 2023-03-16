@@ -4,6 +4,8 @@ const currentRamensUrl = "http://localhost:3000/ramens";
 document.addEventListener("DOMContentLoaded", function() {
     const ramenMenu = document.getElementById('ramen-menu');
     const ramenDetails = document.getElementById('ramen-detail');
+    const newRamenForm = document.getElementById('new-ramen');
+    newRamenForm.addEventListener('submit',submitNewRamen);
 
     displayRamensInMenu();
 
@@ -17,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 img.id = element.id;
                 img.addEventListener('click', displayRamenDetail);
                 ramenMenu.append(img);
-
             };
         });
     };
@@ -38,6 +39,36 @@ document.addEventListener("DOMContentLoaded", function() {
         rating.textContent = obj.rating;
         comment.textContent = obj.comment;
         });
+    };
+
+    
+
+    function submitNewRamen(e) {
+        e.preventDefault();
+        let form = e.target;
+
+        let newRamen = {
+            "name": form.name.value,
+            "restaurant": form.restaurant.value,
+            "image": form.image.value,
+            "rating": form.rating.value,
+            "comment": form["new-comment"].value,
+        };
+
+        console.log(newRamen);
+
+        // let postMsgFormat = {
+        //     method: "POST",
+        //     headers: {
+        //         "Accept": "application/json",
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(newRamen),
+        // };
+
+        // fetch(currentRamensUrl, postMsgFormat)
+        // .then(res => res.json())
+        // .then(obj => console.log(obj));      //add ajisen
     };
 
 });
