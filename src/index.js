@@ -57,18 +57,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
         console.log(newRamen);
 
-        // let postMsgFormat = {
-        //     method: "POST",
-        //     headers: {
-        //         "Accept": "application/json",
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(newRamen),
-        // };
+        let postMsgFormat = {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newRamen),
+        };
 
-        // fetch(currentRamensUrl, postMsgFormat)
-        // .then(res => res.json())
-        // .then(obj => console.log(obj));      //add ajisen
+        fetch(currentRamensUrl, postMsgFormat)
+        .then(res => res.json())
+        .then(obj => console.log(obj));      //add ajisen
     };
 
 });
