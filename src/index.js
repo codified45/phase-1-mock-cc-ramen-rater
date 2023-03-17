@@ -1,6 +1,5 @@
 const currentRamensUrl = "http://localhost:3000/ramens";
 
-
 document.addEventListener("DOMContentLoaded", function() {
     const ramenMenu = document.getElementById('ramen-menu');
     const ramenDetails = document.getElementById('ramen-detail');
@@ -42,12 +41,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 "Content-Type": "application/json",
             },
         };
-        
+
         let dltRamenUrl = currentRamensUrl + `/${id}`;
         fetch(dltRamenUrl, dltMsgFormat)
         .then(res => res.json())
         .then(obj => {
-            console.log(obj)
             e.target.parentNode.remove();
             initRamenDetailDisplay();
         });
@@ -71,25 +69,6 @@ document.addEventListener("DOMContentLoaded", function() {
             comment.textContent = arr[0].comment;
         });
     };
-
-    // function initRamenDetailDisplay() {
-    //     const initRamenUrl = currentRamensUrl + "/1";
-    //     const name = document.querySelector('h2.name');
-    //     const restaurant = document.querySelector('h3.restaurant');
-    //     const comment = document.getElementById('comment-display');
-    //     const rating = document.getElementById('rating-display');
-    //     const image = document.querySelector('img.detail-image');
-    //     fetch(initRamenUrl)
-    //     .then(res => res.json())
-    //     .then(obj => {
-    //     image.src = obj.image;
-    //     image.id = obj.id + 'detail';
-    //     name.textContent = obj.name;
-    //     restaurant.textContent = obj.restaurant;
-    //     rating.textContent = obj.rating;
-    //     comment.textContent = obj.comment;
-    //     });
-    // };
 
     function displayRamenDetail(e) {
         const chosenRamenUrl = currentRamensUrl + `/${e.target.id}`;
@@ -122,8 +101,6 @@ document.addEventListener("DOMContentLoaded", function() {
             "comment": form["new-comment"].value,
         };
 
-        console.log(newRamen);
-
         let postMsgFormat = {
             method: "POST",
             headers: {
@@ -138,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(obj => console.log(obj));
     };
     
-    function editFeaturedRamen(e) { // reset form
+    function editFeaturedRamen(e) {
         e.preventDefault();
         let form = e.target;
 
