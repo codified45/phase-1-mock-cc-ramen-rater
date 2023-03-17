@@ -33,27 +33,63 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     function dltBtnHandler(e) {
-        console.log(e);
+        let id = e.target.previousSibling.id;
+
+        let dltMsgFormat = {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+        };
+        
+        let dltRamenUrl = currentRamensUrl + `/${id}`;
+        fetch(dltRamenUrl, dltMsgFormat)
+        .then(res => res.json())
+        .then(obj => {
+            console.log(obj)
+            e.target.parentNode.remove();
+            initRamenDetailDisplay();
+        });
     };
 
     function initRamenDetailDisplay() {
-        const initRamenUrl = currentRamensUrl + "/1";
         const name = document.querySelector('h2.name');
         const restaurant = document.querySelector('h3.restaurant');
         const comment = document.getElementById('comment-display');
         const rating = document.getElementById('rating-display');
         const image = document.querySelector('img.detail-image');
-        fetch(initRamenUrl)
+        fetch(currentRamensUrl)
         .then(res => res.json())
-        .then(obj => {
-        image.src = obj.image;
-        image.id = obj.id + 'detail';
-        name.textContent = obj.name;
-        restaurant.textContent = obj.restaurant;
-        rating.textContent = obj.rating;
-        comment.textContent = obj.comment;
+        .then(arr => {
+            console.log(arr[0]);
+            image.src = arr[0].image;
+            image.id = arr[0].id + 'detail';
+            name.textContent = arr[0].name;
+            restaurant.textContent = arr[0].restaurant;
+            rating.textContent = arr[0].rating;
+            comment.textContent = arr[0].comment;
         });
     };
+
+    // function initRamenDetailDisplay() {
+    //     const initRamenUrl = currentRamensUrl + "/1";
+    //     const name = document.querySelector('h2.name');
+    //     const restaurant = document.querySelector('h3.restaurant');
+    //     const comment = document.getElementById('comment-display');
+    //     const rating = document.getElementById('rating-display');
+    //     const image = document.querySelector('img.detail-image');
+    //     fetch(initRamenUrl)
+    //     .then(res => res.json())
+    //     .then(obj => {
+    //     image.src = obj.image;
+    //     image.id = obj.id + 'detail';
+    //     name.textContent = obj.name;
+    //     restaurant.textContent = obj.restaurant;
+    //     rating.textContent = obj.rating;
+    //     comment.textContent = obj.comment;
+    //     });
+    // };
 
     function displayRamenDetail(e) {
         const chosenRamenUrl = currentRamensUrl + `/${e.target.id}`;
