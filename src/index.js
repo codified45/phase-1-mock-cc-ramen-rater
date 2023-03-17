@@ -17,13 +17,23 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(res => res.json())
         .then(obj => {
             for (const element of obj) {
+                const span = document.createElement('span');
                 const img = document.createElement('img');
+                const btn = document.createElement('button');
+                btn.textContent = "Delete";
+                btn.addEventListener('click', dltBtnHandler);
                 img.src = element.image;
                 img.id = element.id;
                 img.addEventListener('click', displayRamenDetail);
-                ramenMenu.append(img);
+                span.classList.add('menuImage');
+                span.append(img, btn);
+                ramenMenu.append(span);
             };
         });
+    };
+
+    function dltBtnHandler(e) {
+        console.log(e);
     };
 
     function initRamenDetailDisplay() {
