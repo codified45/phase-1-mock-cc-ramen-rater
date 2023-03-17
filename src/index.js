@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     newRamenForm.addEventListener('submit',submitNewRamen);
 
     displayRamensInMenu();
+    initRamenDetailDisplay();    
 
     function displayRamensInMenu() {
         fetch(currentRamensUrl)
@@ -20,6 +21,24 @@ document.addEventListener("DOMContentLoaded", function() {
                 img.addEventListener('click', displayRamenDetail);
                 ramenMenu.append(img);
             };
+        });
+    };
+
+    function initRamenDetailDisplay() {
+        const initRamenUrl = currentRamensUrl + "/1";
+        const name = document.querySelector('h2.name');
+        const restaurant = document.querySelector('h3.restaurant');
+        const comment = document.getElementById('comment-display');
+        const rating = document.getElementById('rating-display');
+        const image = document.querySelector('img.detail-image');
+        fetch(initRamenUrl)
+        .then(res => res.json())
+        .then(obj => {
+        image.src = obj.image;
+        name.textContent = obj.name;
+        restaurant.textContent = obj.restaurant;
+        rating.textContent = obj.rating;
+        comment.textContent = obj.comment;
         });
     };
 
