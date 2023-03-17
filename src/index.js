@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const ramenMenu = document.getElementById('ramen-menu');
     const ramenDetails = document.getElementById('ramen-detail');
     const newRamenForm = document.getElementById('new-ramen');
-    newRamenForm.addEventListener('submit',submitNewRamen);
+    newRamenForm.addEventListener('submit', submitNewRamen);
+    const editFeatRamen = document.getElementById('edit-ramen');
+    editFeatRamen.addEventListener('submit', editFeaturedRamen);
 
     displayRamensInMenu();
     initRamenDetailDisplay();    
@@ -35,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(res => res.json())
         .then(obj => {
         image.src = obj.image;
+        image.id = obj.id + 'detail';
         name.textContent = obj.name;
         restaurant.textContent = obj.restaurant;
         rating.textContent = obj.rating;
@@ -53,14 +56,13 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(res => res.json())
         .then(obj => {
         image.src = obj.image;
+        image.id = obj.id + 'detail';
         name.textContent = obj.name;
         restaurant.textContent = obj.restaurant;
         rating.textContent = obj.rating;
         comment.textContent = obj.comment;
         });
     };
-
-    
 
     function submitNewRamen(e) {
         e.preventDefault();
@@ -88,6 +90,33 @@ document.addEventListener("DOMContentLoaded", function() {
         fetch(currentRamensUrl, postMsgFormat)
         .then(res => res.json())
         .then(obj => console.log(obj));
+    };
+    
+    function editFeaturedRamen(e) { // reset form
+        e.preventDefault();
+        let form = e.target;
+
+        let editRamen = {
+            "rating": Number.parseInt(form.rating.value),
+            "comment": form["new-comment"].value,
+        };
+
+        let patchMsgFormat = {
+            method: "PATCH",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(editRamen),
+        };
+
+        let ftRamenImg = document.querySelector('#ramen-detail img');
+        let ftRamenId = Number.parseInt(ftRamenImg.id);
+        let editRamenUrl = currentRamensUrl + `/${ftRamenId}`;
+        fetch(editRamenUrl, patchMsgFormat)
+        .then(res => res.json())
+        .then(obj => console.log(obj));
+        form.reset();
     };
 
 });
